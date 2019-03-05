@@ -1,0 +1,16 @@
+type_name,type,stored,indexed,multiValued
+boolean,boolean,true,true,false
+booleans,boolean,true,true,true
+date,pdate,true,true,false
+dates,pdates,true,true,true
+double,pdouble,true,true,false
+doubles,pdouble,true,true,true
+float,pfloat,true,true,false
+floats,pfloat,true,true,true
+int,pint,true,true,false
+ints,pints,true,true,true
+long,long,true,true,false
+longs,longs,true,true,true
+string,string,true,true,false
+strings,strings,true,true,true
+text_general,text_general,true,true,false
