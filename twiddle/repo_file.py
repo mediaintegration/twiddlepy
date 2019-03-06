@@ -2,8 +2,8 @@ import os, copy, json
 import pandas as pd
 import numpy as np
 from connectors.pysolr import Solr, SolrCloud, ZooKeeper
-from twiddle.exceptions import FieldTypeNotFound
-from twiddle.utils import logger
+from exceptions import FieldTypeNotFound
+from utils import logger
 
 class RepositoryCsv:
     def __init__(self, csv_config):
@@ -12,6 +12,13 @@ class RepositoryCsv:
         self.file_path = csv_config['FilePath']
         self.sep = csv_config['ColumnSeparator']
         self.decimal = csv_config['DecimalPoint']
+        
+        # Check whether we should append to the given
+        # file or overwrite it
+        if csv_config['Append'].lower() == 'false':
+            self.write_type = 'w'
+        else:
+            self.write_type = 'a'
 
         self.should_build_schema = False
 
@@ -26,8 +33,8 @@ class RepositoryCsv:
         else:
             mdf = df
         
-        with open(self.file_path, 'a', encoding='utf-8') as file:
-            mdf.to_csv(file, header=self.write_header, decimal=self.decimal, sep=self.sep)
+        with open(self.file_path, self.write_type, encoding='utf-8') as file:
+            mdf.to_csv(file, header=self.write_header, decimal=self.decimal, sep=self.sep, index=False)
         
         self.write_header = False
 

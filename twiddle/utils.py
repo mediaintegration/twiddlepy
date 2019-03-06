@@ -1,10 +1,16 @@
 import os, time
 import hashlib
 import logging
-from twiddle.config import config
+from config import config
+from configparser import InterpolationSyntaxError
 
+try:
+    logging_format = config['Logging']['Format']
+except InterpolationSyntaxError:
+    print('Failed to load logger format from config')
+    raise Exception
 
-logging.basicConfig()
+logging.basicConfig(format=logging_format)
 logger = logging.getLogger(config['Logging']['Name'])
 logger.setLevel(config['Logging']['Level'])
 

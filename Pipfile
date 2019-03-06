@@ -16,6 +16,8 @@ pymysql = "*"
 pymssql = "*"
 cython = "*"
 pymongo = "*"
+requests = "*"
+simplejson = "*"
 
 [requires]
 python_version = "3.7"

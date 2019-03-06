@@ -1,4 +1,5 @@
-from twiddle import datasources
+import datasources
+from utils import logger
 
 class DatasourceManager:
     def __init__(self, config):
@@ -21,6 +22,7 @@ class DatasourceManager:
         # camelcase the datasource type
         ds_type = self.config['DataSource']['Type'].lower().title().replace('.', '')
         ds_cls_name = 'Ds' + ds_type
+        logger.debug('Using %s', ds_cls_name)
 
         ds_cls = getattr(datasources, ds_cls_name, None)
 

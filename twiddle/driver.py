@@ -3,13 +3,13 @@
 import os, sys, time
 from collections import OrderedDict
 
-from twiddle.config import config
-from twiddle.ds_manager import DatasourceManager
-from twiddle.repo_manager import RepositoryManager
-from twiddle.mapper import Mapper
+from config import config
+from ds_manager import DatasourceManager
+from repo_manager import RepositoryManager
+from mapper import Mapper
 
-from twiddle.utils import logger
-from twiddle.exceptions import twiddleException, ExectionError
+from utils import logger
+from exceptions import TwiddleException, ExectionError
 
 try:
     sys.path.append(os.getcwd())
@@ -68,7 +68,7 @@ class TwiddleDriver:
 
         waiting = False
         while True:
-            data_units =self.datasource.get_data_units()
+            data_units = self.datasource.get_data_units()
 
             for dunit in data_units:
                 try:
@@ -99,7 +99,7 @@ class TwiddleDriver:
                             self.repository.commit_df_in_chunks(df)
 
                     self.datasource.archive_data(dunit)
-                except twiddleException as e:
+                except TwiddleException as e:
                     self.datasource.archive_data(dunit, done=False)
                 except Exception as e:
                     logger.error('Error processing file "{}", due to error "{}"'.format(dunit, e))

@@ -1,5 +1,7 @@
+import sys
 import math
 import pandas as pd
+from pandas.errors import EmptyDataError
 import json
 
 from dateutil.parser import parse
@@ -10,9 +12,9 @@ from pandas_schema.validation import LeadingWhitespaceValidation, \
 TrailingWhitespaceValidation, CanConvertValidation, MatchesPatternValidation, \
 InRangeValidation, InListValidation
 
-from twiddle.exceptions import MapperError
+from exceptions import MapperError
 
-from twiddle.utils import logger, df_copy
+from utils import logger, df_copy
 
 '''
     Class to describe source data field names and types and 
@@ -78,13 +80,18 @@ class Mapper:
     def __init__(self, mapper_config):
         self.config = Mapper.parse_config(mapper_config)
 
-        mdf = pd.read_csv(self.config['file'], dtype=self.config['column_type'])
-        mdf = mdf[mdf.ignore.str.lower()!='y']
+        try:
+            mdf = pd.read_csv(self.config['file'], dtype=self.config['column_type'])
+            mdf = mdf[mdf.ignore.str.lower()!='y']
 
-        self.mapper_df = Mapper.filter_mapper(mdf, self.config.get('datasets', None))
+            self.mapper_df = Mapper.filter_mapper(mdf, self.config.get('datasets', None))
 
-        self.validation_schema = None
-        self.validation_schema_for_dataset = {}
+            self.validation_schema = None
+            self.validation_schema_for_dataset = {}
+        except EmptyDataError as e:
+            logger.error('No rows defined in mapper, aborting')
+            raise e
+
 
     '''
         Function to return a copy of mapper dataframe
