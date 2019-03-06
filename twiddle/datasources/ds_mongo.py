@@ -48,10 +48,6 @@ class DsMongo(DsBase):
         collection = database[self.mongo_collection]
 
         documents = collection.find(self.mongo_query)
-        
-        # TODO: Remove this statement or refine into more of a 
-        # debug statement than just printing all the documents to screen.
-        logger.debug(documents)
 
         df = pd.DataFrame.from_dict(documents)
         logger.debug(df)
