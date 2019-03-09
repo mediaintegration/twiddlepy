@@ -3,13 +3,13 @@
 import os, sys, time
 from collections import OrderedDict
 
-from config import config
-from ds_manager import DatasourceManager
-from repo_manager import RepositoryManager
-from mapper import Mapper
+from .config import config
+from .ds_manager import DatasourceManager
+from .repo_manager import RepositoryManager
+from .mapper import Mapper
 
-from utils import logger
-from exceptions import TwiddleException, ExectionError
+from .utils import logger
+from .exceptions import TwiddleException, ExectionError
 
 try:
     sys.path.append(os.getcwd())

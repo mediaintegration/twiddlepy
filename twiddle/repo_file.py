@@ -1,9 +1,9 @@
 import os, copy, json
 import pandas as pd
 import numpy as np
-from connectors.pysolr import Solr, SolrCloud, ZooKeeper
-from exceptions import FieldTypeNotFound
-from utils import logger
+from .connectors.pysolr import Solr, SolrCloud, ZooKeeper
+from .exceptions import FieldTypeNotFound
+from .utils import logger
 
 class RepositoryCsv:
     def __init__(self, csv_config):

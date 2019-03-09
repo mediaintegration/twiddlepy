@@ -1,5 +1,5 @@
-from repo_solr import RepositorySolr
-from repo_file import RepositoryCsv
+from .repo_solr import RepositorySolr
+from .repo_file import RepositoryCsv
 
 class RepositoryManager:
     def __init__(self, config):

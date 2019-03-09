@@ -1,0 +1,2 @@
+include twiddle/data/solr_fieldtype_defaults.csv
+include twiddle/data/twiddle_defaults.cfg

@@ -2,7 +2,9 @@ import os
 import configparser
 
 script_path = os.path.dirname(os.path.realpath(__file__))
-config_path = os.path.realpath(script_path + '/config')
+print(script_path)
+config_path = os.path.realpath(script_path + '/data')
+print(config_path)
 cwd = os.getcwd()
 
 config = configparser.ConfigParser()

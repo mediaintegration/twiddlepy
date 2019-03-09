@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import pandas as pd
 from ast import literal_eval
 
-from utils import logger
+from twiddle.utils import logger
 
 class DsMongo(DsBase):
 
@@ -13,13 +13,9 @@ class DsMongo(DsBase):
         ds_config = config[self.ds_config_section]
 
         self.mongo_server = ds_config["MongoServer"]
-        # if not self.mongo_server:
-        #     self.mongo_server = "localhost"
-
+        # The port must be an integer, so convert it to int
         self.mongo_port = int(ds_config["MongoPort"])
-        # if not self.mongo_port:
-        #     self.mongo_port = 27017
-
+    
         self.mongo_database = ds_config["MongoDatabase"]
         self.mongo_collection = ds_config["MongoCollection"]
         if not self.mongo_database or not self.mongo_collection:

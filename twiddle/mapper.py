@@ -12,9 +12,9 @@ from pandas_schema.validation import LeadingWhitespaceValidation, \
 TrailingWhitespaceValidation, CanConvertValidation, MatchesPatternValidation, \
 InRangeValidation, InListValidation
 
-from exceptions import MapperError
+from .exceptions import MapperError
 
-from utils import logger, df_copy
+from .utils import logger, df_copy
 
 '''
     Class to describe source data field names and types and 

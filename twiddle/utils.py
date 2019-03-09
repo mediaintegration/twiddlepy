@@ -1,7 +1,7 @@
 import os, time
 import hashlib
 import logging
-from config import config
+from .config import config
 from configparser import InterpolationSyntaxError
 
 try:
@@ -9,6 +9,9 @@ try:
 except InterpolationSyntaxError:
     print('Failed to load logger format from config')
     raise Exception
+except KeyError as e:
+    print(e)
+    raise e
 
 logging.basicConfig(format=logging_format)
 logger = logging.getLogger(config['Logging']['Name'])

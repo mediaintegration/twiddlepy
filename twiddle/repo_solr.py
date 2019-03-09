@@ -1,8 +1,8 @@
 import os, copy, json
 import pandas as pd
-from connectors.pysolr import Solr, SolrCloud, ZooKeeper
-from exceptions import FieldTypeNotFound
-from utils import logger
+from .connectors.pysolr import Solr, SolrCloud, ZooKeeper
+from .exceptions import FieldTypeNotFound
+from .utils import logger
 
 class RepositorySolr:
     def __init__(self, solr_config):
