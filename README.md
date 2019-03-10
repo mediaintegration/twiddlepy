@@ -16,7 +16,7 @@ and optional functions your data can be transformed into a better suited format.
 
 `pip install twiddle`
 
-# Usage
+## Usage
 
 Create a runnable python file with the following code:
 
@@ -28,11 +28,11 @@ driver = TwiddleDriver(config)
 driver.process_data()
 ```
 
-## User Configuration
+### User Configuration
 
 Importing config from `twiddle.config` will import the default configuration items for each of the processes,
 and will also look for a user defined configuration file on the path where the application is being run from.
 
-## Mapper File
+### Mapper File
 
 TODO
