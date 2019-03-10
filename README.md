@@ -22,7 +22,7 @@ Create a runnable python file with the following code:
 
 ```python
 from twiddle.config import config
-from twiddle.driver import TwiddleDriver()
+from twiddle.driver import TwiddleDriver
 
 driver = TwiddleDriver(config)
 driver.process_data()
