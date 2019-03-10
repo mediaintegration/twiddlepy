@@ -33,6 +33,8 @@ driver.process_data()
 Importing config from `twiddle.config` will import the default configuration items for each of the processes,
 and will also look for a user defined configuration file on the path where the application is being run from.
 
+All of the configuration items, including all of the default options can be found [here](twiddle/data/twiddle_defaults.cfg)
+
 ### Mapper File
 
 TODO
