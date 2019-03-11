@@ -30,12 +30,13 @@ driver = TwiddleDriver(config)
 driver.process_data()
 ```
 
-### Project Structure
+### Example Project Structure
 
 ```
 .
 |-- mapper
 |   |-- mapper.csv
+|-- local_functions.py
 |-- run.py (File that runs Twiddle)
 |-- twiddle.cfg
 ```
@@ -51,4 +52,8 @@ All of the configuration items, including all of the default options can be foun
 
 A mapper file defined by the user is used to defined the input data that will be extracted from
 the data repository. The mapper file is a CSV in which there are multiple columns that can be filled in
-to specify the data mappings.
+to specify the data mappings. Thw following columns must be defined in the mapper:
+
+| Column Name |                Description                | Options  |
+| :---------: | :---------------------------------------: | :------: |
+|   dataset   | The dataset twiddle will use mappings for | Any name |
