@@ -54,6 +54,8 @@ A mapper file defined by the user is used to defined the input data that will be
 the data repository. The mapper file is a CSV in which there are multiple columns that can be filled in
 to specify the data mappings. Thw following columns must be defined in the mapper:
 
-| Column Name |                Description                | Options  |
-| :---------: | :---------------------------------------: | :------: |
-|   dataset   | The dataset twiddle will use mappings for | Any name |
+|    Column Name    |                Description                | Options  |
+| :---------------: | :---------------------------------------: | :------: |
+|      dataset      | The dataset twiddle will use mappings for | Any name |
+| source_field_name |         A name of a source field          | Any name |
+| source_field_type |     The data type of the source field     |          |
