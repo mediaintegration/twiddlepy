@@ -30,6 +30,16 @@ driver = TwiddleDriver(config)
 driver.process_data()
 ```
 
+### Project Structure
+
+```
+.
+|-- mapper
+|   |-- mapper.csv
+|-- run.py (File that runs Twiddle)
+|-- twiddle.cfg
+```
+
 ### User Configuration
 
 Importing config from `twiddle.config` will import the default configuration items for each of the processes,
@@ -39,4 +49,6 @@ All of the configuration items, including all of the default options can be foun
 
 ### Mapper File
 
-TODO
+A mapper file defined by the user is used to defined the input data that will be extracted from
+the data repository. The mapper file is a CSV in which there are multiple columns that can be filled in
+to specify the data mappings.
