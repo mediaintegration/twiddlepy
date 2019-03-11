@@ -12,9 +12,11 @@ and optional functions your data can be transformed into a better suited format.
 
 ## Installation
 
-`twiddle` is available on the PyPi repository
+Twiddle is available on the PyPi repository
 
 `pip install twiddle`
+
+Or if you want to install directly from the repository: `python setup.py install`, or drop the twiddle directory anywhere on your PYTHONPATH.
 
 ## Usage
 
