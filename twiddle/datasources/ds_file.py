@@ -149,6 +149,33 @@ class DsFileCsv(DsFileBase):
     '''
     def get_label(self):
         return 'CSV file'
+
+class DsFileJson(DsFileBase):
+    def __init__(self, config):
+        super().__init__('file.json', config)
+
+        ds_config = config[self.ds_config_section]
+
+    '''
+        Function that returns a dataframe generator object for the files in 
+        the specified data source location 
+
+        Params:
+            datafile -- Path to the JSON to read
+            dtype -- dictionary specifying column data types 
+            sep -- column separator
+            decimal -- decimal point character
+    '''
+    def read_data_to_df(self, datafile, dtype=None):
+        try:
+            logger.info('Reading file {}'.format(datafile))
+            dfile = os.path.join(self.source_location, datafile)
+            df = pd.read_json(dfile, dtype=dtype)
+            df = DsFileBase.add_filename_to_df(df, datafile)
+            return df
+        except Exception as e:
+            logger.error('Failed to read file "{}" due to error {}'.format(datafile, e))
+            raise SourceDataError('Failed to read file "{}"'.format(datafile))
          
 '''
     Class for reading MS Excel data sources and convert into pandas dataframe.
@@ -198,8 +225,7 @@ class DsFileExcel(DsFileBase):
         Function to return label for the data source
     '''
     def get_label(self):
-        return 'Excel file'
-         
+        return 'Excel file' 
          
 '''
     Class for reading custom data sources and convert into pandas dataframe.
