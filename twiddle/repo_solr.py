@@ -13,7 +13,7 @@ class RepositorySolr:
         else:
             self.chunksize = int(solr_config['ChunkSize'])
 
-        solr_type_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../config', 'solr_fieldtype_defaults.csv')
+        solr_type_file = os.path.join(os.path.realpath(os.path.realpath(__file__)), '../data', 'solr_fieldtype_defaults.csv')
         self.fieldtypes = self.load_fieldtypes(solr_type_file)
 
         if solr_config['BuildSchema'].lower() == 'false':
