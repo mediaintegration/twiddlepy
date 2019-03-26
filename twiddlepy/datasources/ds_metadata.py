@@ -6,8 +6,8 @@ from datetime import datetime
 from collections import OrderedDict
 import pandas as pd
 
-from twiddle.exceptions import SourceDataError, ExectionError
-from twiddle.utils import logger, file_age_in_seconds
+from twiddlepy.exceptions import SourceDataError, ExectionError
+from twiddlepy.utils import logger, file_age_in_seconds
 
 from kazoo.client import KazooClient
 

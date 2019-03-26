@@ -23,7 +23,7 @@ try:
         source_header_tidier_name = config['Processing']['SourceColumnHeaderTidier']
         source_header_tidier_func = getattr(local_functions, source_header_tidier_name, None)
         if source_header_tidier_func is None:
-            from twiddle import utils
+            from twiddlepy import utils
             source_header_tidier_func = getattr(utils, source_header_tidier_name, None)
 
 except ImportError as e:

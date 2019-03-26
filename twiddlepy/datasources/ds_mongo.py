@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import pandas as pd
 from ast import literal_eval
 
-from twiddle.utils import logger
+from twiddlepy.utils import logger
 
 class DsMongo(DsBase):
 

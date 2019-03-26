@@ -1,5 +1,5 @@
-from twiddle import datasources
-from twiddle.utils import logger
+from twiddlepy import datasources
+from twiddlepy.utils import logger
 
 class DatasourceManager:
     def __init__(self, config):

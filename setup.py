@@ -11,7 +11,7 @@ if os.path.isfile(requirementPath):
 
 print(find_packages())
 setup(
-    name='twiddle',
+    name='twiddlepy',
     version='0.0.1',
     description='Extract, Transform and Load pipeline application',
     author='MIT',

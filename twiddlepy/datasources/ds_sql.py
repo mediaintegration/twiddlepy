@@ -6,8 +6,8 @@ import re
 from sqlalchemy import create_engine
 import cx_Oracle
 
-from twiddle.exceptions import SourceDataError
-from twiddle.utils import logger, uppercase
+from twiddlepy.exceptions import SourceDataError
+from twiddlepy.utils import logger, uppercase
 
 from .ds_base import DsBase
 
