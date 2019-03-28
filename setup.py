@@ -8,15 +8,20 @@ if os.path.isfile(requirementPath):
     with open(requirementPath) as f:
         install_requires = f.read().splitlines()
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 
 print(find_packages())
 setup(
     name='twiddlepy',
     version='0.0.1',
     description='Extract, Transform and Load pipeline application',
-    author='MIT',
-    author_email='awburt@btopenworld.com',
-    packages=find_packages(),
+    long_description=long_description,
+    author='Media Integration Technologies Ltd.',
+    author_email='info@mediaintegration.co.uk',
+    url="https://github.com/mediaintegration/twiddlepy"
+    packages=find_packages(exclude=("tests", "scripts")),
     install_requires=install_requires,
     include_package_data=True,
     entry_points = {
