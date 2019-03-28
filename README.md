@@ -18,6 +18,29 @@ Twiddlepy is available on the PyPi repository
 
 Or if you want to install directly from the repository: `python setup.py install`, or drop the twiddlepy directory anywhere on your PYTHONPATH.
 
+## Connectors
+
+There are a number of data repository connectors available with Twiddlepy. Currently implemented connectors include:
+
+### Data Source (Input)
+
+- File Based
+  - CSV
+  - Excel Document
+  - Support for custom file loading (e.g. HTML)
+- Database
+  - MySQL
+  - MSSQL
+  - Oracle
+  - SQLite
+- MongoDB
+
+### Repository (Output)
+
+- File Based
+  - CSV
+- Apache Solr
+
 ## Usage
 
 Create a runnable python file with the following code:
@@ -68,3 +91,14 @@ to specify the data mappings. Thw following columns must be defined in the mappe
 | repository_field_name |       The name the column will be renamed to for data loading       |                   Any name (string)                    |
 | repository_field_type |    The data type that will be applied to the column when loading    | One of: "string", "integer", "float", "double", "date" |
 |        ignore         | Mark column to be ignore by mapping process (for historic datasets) |              One of: "y", "n" (Yes or No)              |
+
+## Contribute
+
+As a company, we welcome any input to fix/improve the project. Whilst we don't have a style guide currently,
+this is something we will be working on in the future to improve the project further. We're very interested to hear
+what you think about Twiddlepy, and any improvements you would like to see so please raise any issues in the tracker!
+
+## Contact
+
+Got a problem/query and want to discuss it with us personally? Contact us at <info@mediaintegration.co.uk>. We also have a website with more
+information about the company [here](http://www.mediaintegration.co.uk)
