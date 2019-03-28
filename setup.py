@@ -21,7 +21,7 @@ setup(
     author='Media Integration Technologies Ltd.',
     author_email='info@mediaintegration.co.uk',
     url="https://github.com/mediaintegration/twiddlepy"
-    packages=find_packages(exclude=("tests", "scripts")),
+    packages=find_packages(exclude=["tests", "scripts"]),
     install_requires=install_requires,
     include_package_data=True,
     entry_points = {
