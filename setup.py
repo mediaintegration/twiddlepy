@@ -20,7 +20,7 @@ setup(
     long_description=long_description,
     author='Media Integration Technologies Ltd.',
     author_email='info@mediaintegration.co.uk',
-    url="https://github.com/mediaintegration/twiddlepy"
+    url="https://github.com/mediaintegration/twiddlepy",
     packages=find_packages(exclude=["tests", "scripts"]),
     install_requires=install_requires,
     include_package_data=True,
