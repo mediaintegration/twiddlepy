@@ -2,6 +2,7 @@ import os
 from glob import glob
 from collections import OrderedDict
 import pandas as pd
+from ast import literal_eval
 
 from twiddlepy.exceptions import LocationNotExist, SourceDataError
 from twiddlepy.utils import logger, file_age_in_seconds
@@ -118,7 +119,8 @@ class DsFileCsv(DsFileBase):
     def __init__(self, config):
         super().__init__('file.csv', config)
         ds_config = config[self.ds_config_section]
-        self.column_separator = ds_config['ColumnSeparator']
+        # self.column_separator = literal_eval(ds_config['ColumnSeparator'])
+        self.column_separator = literal_eval(ds_config['ColumnSeparator'])
         self.decimal_point = ds_config['DecimalPoint']
 
     
@@ -136,8 +138,9 @@ class DsFileCsv(DsFileBase):
         try:
             logger.info('Reading file {}'.format(datafile))
             dfile = os.path.join(self.source_location, datafile)
-            df = pd.read_csv(dfile, dtype=dtype, sep=self.column_separator, decimal=self.decimal_point)
+            df = pd.read_csv(dfile, dtype=dtype, sep=self.column_separator, decimal=self.decimal_point, quotechar="'")
             df = DsFileBase.add_filename_to_df(df, datafile)
+            print(df)
             return df
         except Exception as e:
             logger.error('Failed to read file "{}" due to error {}'.format(datafile, e))

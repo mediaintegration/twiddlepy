@@ -15,8 +15,11 @@ try:
     sys.path.append(os.getcwd())
     import local_functions
     if config['Processing']['TransformationProc'] != '':
+        pre_map_func_name = config['Processing']['PreMapTransformationProc']
         trans_func_name = config['Processing']['TransformationProc']
+        logger.debug(f'Transformation Procedure Name: {trans_func_name}')9
         transformation_function = getattr(local_functions, trans_func_name, None)
+        premap_transformation_function = getattr(local_functions, pre_map_func_name, None)
         xsheet_proc_name = config['Processing']['ExcelCrossSheetProc']
         excel_cross_sheet_proc = getattr(local_functions, xsheet_proc_name, None)
 
@@ -80,7 +83,7 @@ class TwiddleDriver:
 
                     if not isinstance(df, OrderedDict):
                         qa_schema, qa_fields = self.mapper.get_validation_schema()
-                        df = self.process_dataframe(df, qa_schema, qa_fields, source_to_repo_mapping, transformation_function)
+                        df = self.process_dataframe(df, qa_schema, qa_fields, premap_transformation_function, source_to_repo_mapping, transformation_function)
                         self.repository.commit_df_in_chunks(df)
                     else:
                         dfs = {}
@@ -90,7 +93,7 @@ class TwiddleDriver:
                                 trans = transformation_function[sheet_name]
                             else:
                                 trans = None
-                            dfs[sheet_name] = self.process_dataframe(sheet_df, qa_schema, qa_fields, source_to_repo_mapping, trans)
+                            dfs[sheet_name] = self.process_dataframe(sheet_df, qa_schema, qa_fields, premap_transformation_function, source_to_repo_mapping, transformation_function)
                         
                         if excel_cross_sheet_proc is not None:
                             dfs = excel_cross_sheet_proc(dfs)
@@ -114,9 +117,16 @@ class TwiddleDriver:
                 waiting = True
             time.sleep(10)
 
-    def process_dataframe(self, df, qa_schema, qa_fields, source_to_repo_mapping, transformation_function):
+    def process_dataframe(self, df, qa_schema, qa_fields, premap_transormation_function, source_to_repo_mapping, transformation_function):
         if len(df) == 0:
             return df
+
+        if premap_transformation_function in not None:
+            try:
+                df = premap_transformation_function(df)
+            except Exception as e:
+                logger.error('Failed to execute pre-map transformation function "{}" due to error {}'.format(premap_transformation_function.__name__, e))
+                raise ExectionError('Failed to execute metadata processor "{}"'.format(transformation_function.__name__))
 
         self.mapper.validate_dataframe(df, qa_schema, qa_fields)
 
