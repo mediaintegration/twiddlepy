@@ -17,7 +17,7 @@ try:
     if config['Processing']['TransformationProc'] != '':
         pre_map_func_name = config['Processing']['PreMapTransformationProc']
         trans_func_name = config['Processing']['TransformationProc']
-        logger.debug(f'Transformation Procedure Name: {trans_func_name}')9
+        logger.debug(f'Transformation Procedure Name: {trans_func_name}')
         transformation_function = getattr(local_functions, trans_func_name, None)
         premap_transformation_function = getattr(local_functions, pre_map_func_name, None)
         xsheet_proc_name = config['Processing']['ExcelCrossSheetProc']
