@@ -15,11 +15,9 @@ try:
     sys.path.append(os.getcwd())
     import local_functions
     if config['Processing']['TransformationProc'] != '':
-        pre_map_func_name = config['Processing']['PreMapTransformationProc']
         trans_func_name = config['Processing']['TransformationProc']
         logger.debug(f'Transformation Procedure Name: {trans_func_name}')
         transformation_function = getattr(local_functions, trans_func_name, None)
-        premap_transformation_function = getattr(local_functions, pre_map_func_name, None)
         xsheet_proc_name = config['Processing']['ExcelCrossSheetProc']
         excel_cross_sheet_proc = getattr(local_functions, xsheet_proc_name, None)
 
@@ -28,6 +26,11 @@ try:
         if source_header_tidier_func is None:
             from twiddlepy import utils
             source_header_tidier_func = getattr(utils, source_header_tidier_name, None)
+
+
+    if config['Processing']['PreMapTransformationProc'] != '':
+        pre_map_func_name = config['Processing']['PreMapTransformationProc']
+        premap_transformation_function = getattr(local_functions, pre_map_func_name, None)
 
 except ImportError as e:
     logger.warning('Failed to import local_functions due to {}'.format(e))
@@ -75,7 +78,16 @@ class TwiddleDriver:
 
             for dunit in data_units:
                 try:
-                    df = self.datasource.read_data_to_df(dunit, dtype=source_field_type)
+                    df = self.datasource.read_data_to_df(dunit, dtype='str')
+                    if premap_transformation_function is not None:
+                        try:
+                            df = premap_transformation_function(df)
+                        except Exception as e:
+                            logger.error('Failed to execute transformation function "{}" due to error {}'.format(premap_transformation_function.__name__, e))
+                            raise ExectionError('Failed to execute metadata processor "{}"'.format(premap_transformation_function.__name__))
+
+                    df = df.astype(source_field_type)
+
 
                     if len(df) > 0:
                         waiting = False
@@ -117,16 +129,9 @@ class TwiddleDriver:
                 waiting = True
             time.sleep(10)
 
-    def process_dataframe(self, df, qa_schema, qa_fields, premap_transormation_function, source_to_repo_mapping, transformation_function):
+    def process_dataframe(self, df, qa_schema, qa_fields, premap_transformation_function, source_to_repo_mapping, transformation_function):
         if len(df) == 0:
             return df
-
-        if premap_transformation_function in not None:
-            try:
-                df = premap_transformation_function(df)
-            except Exception as e:
-                logger.error('Failed to execute pre-map transformation function "{}" due to error {}'.format(premap_transformation_function.__name__, e))
-                raise ExectionError('Failed to execute metadata processor "{}"'.format(transformation_function.__name__))
 
         self.mapper.validate_dataframe(df, qa_schema, qa_fields)
 
