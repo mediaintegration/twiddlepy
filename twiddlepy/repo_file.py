@@ -28,11 +28,13 @@ class RepositoryCsv:
             df: dataframe to commit to CSV file
     '''
     def commit_df(self, df, remove_nan=True):
+        print('bb')
         if remove_nan:
             mdf = df.replace(np.nan, '', regex=True)
         else:
             mdf = df
         
+        print('cc')
         with open(self.file_path, self.write_type, encoding='utf-8') as file:
             mdf.to_csv(file, header=self.write_header, decimal=self.decimal, sep=self.sep, index=False)
         
@@ -40,4 +42,5 @@ class RepositoryCsv:
 
     
     def commit_df_in_chunks(self, df, remove_nan=True):
+        print('aa')
         return self.commit_df(df, remove_nan=remove_nan)
