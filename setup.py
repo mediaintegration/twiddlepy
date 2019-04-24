@@ -14,7 +14,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='twiddlepy',
-    version='0.1.1',
+    version='0.1.2',
     description='Extract, Transform and Load pipeline application',
     long_description=long_description,
     author='Media Integration Technologies Ltd.',
