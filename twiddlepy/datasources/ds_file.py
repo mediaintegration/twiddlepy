@@ -119,9 +119,11 @@ class DsFileCsv(DsFileBase):
     def __init__(self, config):
         super().__init__('file.csv', config)
         ds_config = config[self.ds_config_section]
-        # self.column_separator = literal_eval(ds_config['ColumnSeparator'])
         self.column_separator = literal_eval(ds_config['ColumnSeparator'])
         self.decimal_point = ds_config['DecimalPoint']
+
+        # Allows for files to be loaded that have compression e.g. gzip
+        self.compression = ds_config['Compression']
     
     '''
         Function that returns a dataframe generator object for the files in 
@@ -137,7 +139,7 @@ class DsFileCsv(DsFileBase):
         try:
             logger.info('Reading file {}'.format(datafile))
             dfile = os.path.join(self.source_location, datafile)
-            df = pd.read_csv(dfile, dtype=dtype, sep=self.column_separator, decimal=self.decimal_point, quotechar="'")
+            df = pd.read_csv(dfile, dtype=dtype, sep=self.column_separator, decimal=self.decimal_point, quotechar="'", compression=self.compression)
             df = DsFileBase.add_filename_to_df(df, datafile)
             return df
         except Exception as e:
