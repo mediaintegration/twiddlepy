@@ -12,7 +12,6 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 
-print(find_packages())
 setup(
     name='twiddlepy',
     version='0.0.1',

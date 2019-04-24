@@ -88,25 +88,19 @@ class TwiddleDriver:
                             raise ExectionError('Failed to execute metadata processor "{}"'.format(premap_transformation_function.__name__))
 
                     df = df.astype(source_field_type)
-                    print('11')
 
                     if len(df) > 0:
                         waiting = False
                         logger.info('Processing {} "{}"...'.format(self.datasource.get_label(), dunit))
 
-                    print('22')
                     if not isinstance(df, OrderedDict):
-                        print('33')
                         qa_schema, qa_fields = self.mapper.get_validation_schema()
-                        print('34')
                         if transformation_function is not None:
                             df = self.process_dataframe(df, qa_schema, qa_fields, source_to_repo_mapping, transformation_function)
                         else:
                             df = self.process_dataframe(df, qa_schema, qa_fields, source_to_repo_mapping)
-                        print('35')
                         self.repository.commit_df_in_chunks(df)
                     else:
-                        print('44')
                         dfs = {}
                         for _, (sheet_name, sheet_df) in enumerate(df.items()):
                             qa_schema, qa_fields = self.mapper.get_validation_schema(dataset=sheet_name)
@@ -115,12 +109,10 @@ class TwiddleDriver:
                             else:
                                 trans = None
                             dfs[sheet_name] = self.process_dataframe(sheet_df, qa_schema, qa_fields, source_to_repo_mapping, transformation_function)
-                        
-                        print('55')
+                
                         if excel_cross_sheet_proc is not None:
                             dfs = excel_cross_sheet_proc(dfs)
 
-                        print('66')
                         for name, df in dfs.items():
                             self.repository.commit_df_in_chunks(df)
 
@@ -128,8 +120,6 @@ class TwiddleDriver:
                 except TwiddleException as e:
                     self.datasource.archive_data(dunit, done=False)
                 except Exception as e:
-                    print('1st exception')
-                    print(e)
                     logger.error('Error processing file "{}", due to error "{}"'.format(dunit, e))
                     self.datasource.archive_data(dunit, done=False)
                 
@@ -155,13 +145,9 @@ class TwiddleDriver:
         df = df.rename(columns=source_to_repo_mapping)
         
         if transformation_function is not None:
-            print('Trying to run transformation function...')
-            print(transformation_function)
             try:
                 df = transformation_function(df)
             except Exception as e:
-                print('2nd exception')
-                print(e)
                 logger.error('Failed to execute transformation function "{}" due to error {}'.format(transformation_function.__name__, e))
                 raise ExectionError('Failed to execute metadata processor "{}"'.format(transformation_function.__name__))
         return df

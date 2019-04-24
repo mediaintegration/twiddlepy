@@ -122,7 +122,6 @@ class DsFileCsv(DsFileBase):
         # self.column_separator = literal_eval(ds_config['ColumnSeparator'])
         self.column_separator = literal_eval(ds_config['ColumnSeparator'])
         self.decimal_point = ds_config['DecimalPoint']
-
     
     '''
         Function that returns a dataframe generator object for the files in 
@@ -140,7 +139,6 @@ class DsFileCsv(DsFileBase):
             dfile = os.path.join(self.source_location, datafile)
             df = pd.read_csv(dfile, dtype=dtype, sep=self.column_separator, decimal=self.decimal_point, quotechar="'")
             df = DsFileBase.add_filename_to_df(df, datafile)
-            print(df)
             return df
         except Exception as e:
             logger.error('Failed to read file "{}" due to error {}'.format(datafile, e))
