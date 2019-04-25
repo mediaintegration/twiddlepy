@@ -123,6 +123,7 @@ class DsFileCsv(DsFileBase):
         self.decimal_point = ds_config['DecimalPoint']
 
         # Allows for files to be loaded that have compression e.g. gzip
+        # Default option is 'infer'
         self.compression = ds_config['Compression']
     
     '''
