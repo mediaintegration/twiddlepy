@@ -1,2 +1,2 @@
 include twiddlepy/data/solr_fieldtype_defaults.csv
-include twiddlepy/data/twiddle_defaults.cfg
+include twiddlepy/data/twiddlepy_defaults.cfg
